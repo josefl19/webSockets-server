@@ -8,16 +8,19 @@ const btnEnviar = document.querySelector('#btnEnviar');
 const socket = io();
 
 socket.on('connect', () => {
-    console.log('Conectado al servidor');
     lblDisconnect.style.display = 'none';
     lblOnline.style.display = '';
-})
+});
 
 socket.on('disconnect', () => {
-    console.log('Desconectado del servidor');
     lblOnline.style.display = 'none';
     lblDisconnect.style.display = '';
-})
+});
+
+// Acceder a enviar-mensaje y recibir el mensaje desde el servidor
+socket.on('enviar-mensaje', ( payload ) => {
+    console.log( payload );
+});
 
 // Send information from client to server
 btnEnviar.addEventListener('click', () => {
@@ -30,4 +33,4 @@ btnEnviar.addEventListener('click', () => {
         id: '123ABC'
     }
     socket.emit('enviar-mensaje', payload)
-})
+});

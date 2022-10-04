@@ -36,17 +36,15 @@ class Servidor {
 
     sockets() {
         this.io.on("connection", (socket) => {
-            // send a message to the client
-            //socket.emit("hello from server", 1, "2", { 3: Buffer.from([4]) });
-                console.log('Cliente conectado', socket.id );
-
                 socket.on('disconnect', () => {
                     console.log('Cliente desconectado!', socket.id);
                 });
 
                 // receive a message from the client
                 socket.on('enviar-mensaje', ( payload ) => {
-                    console.log( payload );
+
+                    // Emitir mensaje a todos los clientes
+                    this.io.emit('enviar-mensaje', payload);                // Colocar el enviar-mensaje en el cliente
                 });
             });
     }
