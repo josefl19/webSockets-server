@@ -41,10 +41,12 @@ class Servidor {
                 });
 
                 // receive a message from the client
-                socket.on('enviar-mensaje', ( payload ) => {
-
+                socket.on('enviar-mensaje', ( payload, callback ) => {
                     // Emitir mensaje a todos los clientes
-                    this.io.emit('enviar-mensaje', payload);                // Colocar el enviar-mensaje en el cliente
+                    // this.io.emit('enviar-mensaje', payload);                // Colocar el enviar-mensaje en el cliente
+
+                    const id = 123456;
+                    callback( id );
                 });
             });
     }
