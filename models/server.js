@@ -2,6 +2,7 @@ import express from "express"
 import cors from "cors";
 import * as http from 'http';
 import { Server } from "socket.io";
+import { socketController } from "../sockets/controller.js";
 
 class Servidor {
     constructor() {
@@ -35,20 +36,7 @@ class Servidor {
     }
 
     sockets() {
-        this.io.on("connection", (socket) => {
-                socket.on('disconnect', () => {
-                    console.log('Cliente desconectado!', socket.id);
-                });
-
-                // receive a message from the client
-                socket.on('enviar-mensaje', ( payload, callback ) => {
-                    // Emitir mensaje a todos los clientes
-                    // this.io.emit('enviar-mensaje', payload);                // Colocar el enviar-mensaje en el cliente
-
-                    const id = 123456;
-                    callback( id );
-                });
-            });
+        this.io.on("connection", socketController);
     }
 
     listen() {
